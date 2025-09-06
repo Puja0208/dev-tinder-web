@@ -25,6 +25,7 @@ const EditProfile = (props) => {
           age,
           about,
           photoUrl,
+          gender,
         },
         {
           withCredentials: true,
@@ -32,7 +33,7 @@ const EditProfile = (props) => {
       );
       dispatch(addUser(res?.data?.data));
     } catch (error) {
-      setError(error.message);
+      setError(error.response.data);
     }
   };
 
@@ -105,6 +106,8 @@ const EditProfile = (props) => {
                   />
                 </fieldset>
               </div>
+
+              <p className="text-red-500">{error}</p>
 
               <div className="card-actions justify-center p-2">
                 <button className="btn btn-primary" onClick={saveProfile}>
