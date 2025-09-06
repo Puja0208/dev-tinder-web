@@ -115,7 +115,7 @@ const EditProfile = (props) => {
           </div>
         </div>
       </div>
-      <UserCard user={{ firstName, lastName, age, gender, about }} />
+      <UserCard user={{ firstName, lastName, age, gender, about, photoUrl }} />
     </div>
   );
 };
