@@ -4,9 +4,11 @@ const UserCard = (props) => {
 
   return (
     <div className="card bg-base-300 w-96 shadow-sm">
-      <figure>
-        <img src={photoUrl} alt="photo-profile" />
-      </figure>
+      {photoUrl && (
+        <figure>
+          <img src={photoUrl} alt="photo-profile" />
+        </figure>
+      )}
       <div className="card-body">
         <h2 className="card-title">{firstName + " " + lastName}</h2>
         {age && gender && <p>{age + ", " + gender}</p>}
