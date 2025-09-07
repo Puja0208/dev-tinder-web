@@ -38,7 +38,7 @@ const Requests = () => {
         return (
           <div
             key={_id}
-            className="m-4 p-4  rounded-lg bg-base-300 flex w-1/2 mx-auto"
+            className="m-4 p-4 items-center rounded-lg bg-base-300 flex w-2/3 mx-auto justify-between"
           >
             <div>
               {photoUrl && (
@@ -53,6 +53,10 @@ const Requests = () => {
               <h2 className="font-bold text-xl">{firstName}</h2>
               {age && gender && <p>{age + "," + gender}</p>}
               <p>{about}</p>
+            </div>
+            <div className="flex gap-2 justify-center align-middle">
+              <button className="btn btn-primary">Reject</button>
+              <button className="btn btn-secondary">Accept</button>
             </div>
           </div>
         );
