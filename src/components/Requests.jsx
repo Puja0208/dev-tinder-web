@@ -1,12 +1,13 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
-import { addRequest } from "../utils/requestSlice";
+import { addRequest, removeRequest } from "../utils/requestSlice";
 
 const Requests = () => {
   const dispatch = useDispatch();
   const requests = useSelector((state) => state.requests);
+
   const fetchRequests = async () => {
     try {
       const res = await axios.get(`${BASE_URL}/user/requests/received`, {
@@ -31,6 +32,7 @@ const Requests = () => {
           withCredentials: true,
         }
       );
+      dispatch(removeRequest(_id));
     } catch (error) {}
   };
 
@@ -45,7 +47,7 @@ const Requests = () => {
       <h1 className="text-bold text-2xl">Requests</h1>
 
       {requests.map((request, index) => {
-        const { firstName, photoUrl, lastName, about, age, _id } =
+        const { firstName, photoUrl, lastName, about, age, _id, gender } =
           request.fromUserId;
         return (
           <div
@@ -75,7 +77,7 @@ const Requests = () => {
               </button>
               <button
                 className="btn btn-secondary"
-                onClick={() => handleReviewRequest("accepted", _id)}
+                onClick={() => handleReviewRequest("accepted",_id)}
               >
                 Accept
               </button>
