@@ -22,10 +22,22 @@ const Requests = () => {
     fetchRequests();
   }, []);
 
+  const handleReviewRequest = async (status, _id) => {
+    try {
+      const res = await axios.post(
+        `${BASE_URL}/request/review/${status}/${_id}`,
+        {},
+        {
+          withCredentials: true,
+        }
+      );
+    } catch (error) {}
+  };
+
   if (!requests) return;
 
   if (requests.length === 0) {
-    return <h1>No request found</h1>;
+    return <h1 className="flex justify-center my-10">No request found</h1>;
   }
 
   return (
@@ -55,8 +67,18 @@ const Requests = () => {
               <p>{about}</p>
             </div>
             <div className="flex gap-2 justify-center align-middle">
-              <button className="btn btn-primary">Reject</button>
-              <button className="btn btn-secondary">Accept</button>
+              <button
+                className="btn btn-primary"
+                onClick={() => handleReviewRequest("rejected", _id)}
+              >
+                Reject
+              </button>
+              <button
+                className="btn btn-secondary"
+                onClick={() => handleReviewRequest("accepted", _id)}
+              >
+                Accept
+              </button>
             </div>
           </div>
         );
