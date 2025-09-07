@@ -31,9 +31,9 @@ const UserCard = (props) => {
         </figure>
       )}
       <div className="card-body">
-        <h2 className="card-title">{firstName + " " + lastName}</h2>
-        {age && gender && <p>{age + ", " + gender}</p>}
-        <p>{about}</p>
+        <h2 className="card-title flex-grow-0">{firstName + " " + lastName}</h2>
+        {age && gender && <p className="flex-grow-0">{age + ", " + gender}</p>}
+        <p className="flex-grow-0">{about}</p>
         <div className="card-actions justify-center my-4">
           <button
             className="btn btn-primary"
