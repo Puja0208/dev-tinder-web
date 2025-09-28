@@ -1,0 +1,33 @@
+import React from "react";
+
+const Premium = () => {
+  return (
+    <div className="m-10">
+      <div className="flex w-full">
+        <div className="card bg-base-300 rounded-box grid h-80 grow place-items-center">
+          <h1 className="font-bold text-3xl">Silver membership</h1>
+          <ul>
+            <li> - Chat with other people</li>
+            <li> - 100 connect requests per day</li>
+            <li> - Blue tick</li>
+            <li> - 3 months</li>
+          </ul>
+          <button className="btn btn-secondary">Buy silver</button>
+        </div>
+        <div className="divider divider-horizontal">OR</div>
+        <div className="card bg-base-300 rounded-box grid h-80 grow place-items-center">
+          <h1 className="font-bold text-3xl">Gold membership</h1>
+          <ul>
+            <li> - Chat with other people</li>
+            <li> - Infinite connect requests per day</li>
+            <li> - Blue tick</li>
+            <li> - 6 months</li>
+          </ul>
+          <button className="btn btn-primary">Buy gold</button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Premium;
