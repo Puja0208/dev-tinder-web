@@ -11,9 +11,28 @@ const Premium = () => {
         withCredentials: true,
       }
     );
-  };
+    const { amount, keyId, currency, notes, orderId } = order.data;
 
-  //open razorpay dialog box
+    // Open Razorpay Checkout
+    const options = {
+      key: keyId, // Replace with your Razorpay key_id
+      amount: amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      currency: currency,
+      name: "Dev Tinder",
+      description: "Connect to other devs",
+      order_id: orderId, // This is the order_id created in the backend
+      prefill: {
+        name: `${notes.firstName} ${notes.lastName}`,
+        email: notes.emailId,
+        contact: "9999999999",
+      },
+      theme: {
+        color: "#F37254",
+      },
+    };
+    const rzp = new window.Razorpay(options);
+    rzp.open();
+  };
 
   return (
     <div className="m-10">
