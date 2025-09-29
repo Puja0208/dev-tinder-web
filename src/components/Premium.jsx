@@ -1,6 +1,20 @@
 import React from "react";
+import axios from "axios";
+import { BASE_URL } from "../utils/constants";
 
 const Premium = () => {
+  const handleBuyClick = async (type) => {
+    const order = await axios.post(
+      `${BASE_URL}/payment/create`,
+      { membershipType: type },
+      {
+        withCredentials: true,
+      }
+    );
+  };
+
+  //open razorpay dialog box
+
   return (
     <div className="m-10">
       <div className="flex w-full">
@@ -12,7 +26,12 @@ const Premium = () => {
             <li> - Blue tick</li>
             <li> - 3 months</li>
           </ul>
-          <button className="btn btn-secondary">Buy silver</button>
+          <button
+            className="btn btn-secondary"
+            onClick={() => handleBuyClick("silver")}
+          >
+            Buy silver
+          </button>
         </div>
         <div className="divider divider-horizontal">OR</div>
         <div className="card bg-base-300 rounded-box grid h-80 grow place-items-center">
@@ -23,7 +42,12 @@ const Premium = () => {
             <li> - Blue tick</li>
             <li> - 6 months</li>
           </ul>
-          <button className="btn btn-primary">Buy gold</button>
+          <button
+            className="btn btn-primary"
+            onClick={() => handleBuyClick("gold")}
+          >
+            Buy gold
+          </button>
         </div>
       </div>
     </div>
