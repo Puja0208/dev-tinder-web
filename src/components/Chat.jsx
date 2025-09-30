@@ -12,10 +12,12 @@ const Chat = () => {
 
   useEffect(() => {
     const socket = createSocketConnection();
+    //as soon as page loads, the socket connect is made and  join chat event is emitted
     socket.emit("joinChat", { userId, targetUserId });
     return () => {
-
-    }
+      //cleanup socket to avoid having loose socket connections
+      socket.disconnect();
+    };
   }, []);
 
   return (
