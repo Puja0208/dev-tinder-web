@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 
 const Chat = () => {
   const { targetUserId } = useParams();
-  const [messages, setMessages] = useState([{ text: "Hello world" }]);
+  const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
 
   const user = useSelector((store) => store.user);
@@ -23,6 +23,7 @@ const Chat = () => {
 
     socket.on("messageReceived", ({ firstName, text }) => {
       console.log(`${firstName} : ${text}`);
+      setMessages((prevMessages) => [...prevMessages, { firstName, text }]);
     });
 
     return () => {
@@ -39,10 +40,11 @@ const Chat = () => {
       targetUserId,
       text: newMessage,
     });
+    setNewMessage("");
   };
 
   return (
-    <div className="w-1/2 mx-auto border border-gray-600 m-5 h-[70vh] flex flex-col">
+    <div className="w-3/4 mx-auto border border-gray-600 m-5 h-[70vh] flex flex-col">
       <h1 className="p-5 border-b border-gray-600">Chat</h1>
       <div className="flex-1 overflow-scroll p-5">
         {/**Display messages */}
@@ -50,10 +52,10 @@ const Chat = () => {
           return (
             <div key={index} className="chat chat-start">
               <div className="chat-header">
-                John Doe
+                {msg.firstName}
                 <time className="text-xs opacity-50">2 hours ago</time>
               </div>
-              <div className="chat-bubble">You were the Chosen One!</div>
+              <div className="chat-bubble">{msg.text}</div>
               <div className="chat-footer opacity-50">Seen</div>
             </div>
           );
@@ -61,7 +63,7 @@ const Chat = () => {
       </div>
       <div className="p-5 border-t border-grey-600 flex gap-2 items-center">
         <input
-          className="flex-1 border border-grey-500 text-white p-5rounded"
+          className="flex-1 border border-grey-500 text-white p-5rounded p-2 rounded"
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
         ></input>
