@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 const Chat = () => {
   const { targetUserId } = useParams();
   const [messages, setMessages] = useState([{ text: "Hello world" }]);
+  const [newMessage, setNewMessage] = useState("");
 
   const user = useSelector((store) => store.user);
   const userId = user?._id;
@@ -19,11 +20,26 @@ const Chat = () => {
       userId,
       targetUserId,
     });
+
+    socket.on("messageReceived", ({ firstName, text }) => {
+      console.log(`${firstName} : ${text}`);
+    });
+
     return () => {
       //cleanup socket to avoid having loose socket connections
       socket.disconnect();
     };
   }, [userId, targetUserId]);
+
+  const sendMessage = () => {
+    const socket = createSocketConnection();
+    socket.emit("sendMessage", {
+      firstName: user.firstName,
+      userId,
+      targetUserId,
+      text: newMessage,
+    });
+  };
 
   return (
     <div className="w-1/2 mx-auto border border-gray-600 m-5 h-[70vh] flex flex-col">
@@ -44,8 +60,14 @@ const Chat = () => {
         })}
       </div>
       <div className="p-5 border-t border-grey-600 flex gap-2 items-center">
-        <input className="flex-1 border border-grey-500 text-white p-5rounded"></input>
-        <button className="btn btn-secondary">Send</button>
+        <input
+          className="flex-1 border border-grey-500 text-white p-5rounded"
+          value={newMessage}
+          onChange={(e) => setNewMessage(e.target.value)}
+        ></input>
+        <button className="btn btn-secondary" onClick={sendMessage}>
+          Send
+        </button>
       </div>
     </div>
   );
