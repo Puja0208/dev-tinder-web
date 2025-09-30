@@ -11,14 +11,19 @@ const Chat = () => {
   const userId = user?._id;
 
   useEffect(() => {
+    if (!userId) return;
     const socket = createSocketConnection();
     //as soon as page loads, the socket connect is made and  join chat event is emitted
-    socket.emit("joinChat", { userId, targetUserId });
+    socket.emit("joinChat", {
+      firstName: user.firstName,
+      userId,
+      targetUserId,
+    });
     return () => {
       //cleanup socket to avoid having loose socket connections
       socket.disconnect();
     };
-  }, []);
+  }, [userId, targetUserId]);
 
   return (
     <div className="w-1/2 mx-auto border border-gray-600 m-5 h-[70vh] flex flex-col">
@@ -29,7 +34,7 @@ const Chat = () => {
           return (
             <div key={index} className="chat chat-start">
               <div className="chat-header">
-                Obi-Wan Kenobi
+                John Doe
                 <time className="text-xs opacity-50">2 hours ago</time>
               </div>
               <div className="chat-bubble">You were the Chosen One!</div>
