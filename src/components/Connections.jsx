@@ -3,9 +3,11 @@ import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { addConnections } from "../utils/connectionSlice";
+import { Link, useNavigate } from "react-router";
 
 const Connections = () => {
   const dispatch = useDispatch();
+  const redirect = useNavigate();
   const connections = useSelector((state) => state.connections);
 
   const fetchConnections = async () => {
@@ -39,21 +41,28 @@ const Connections = () => {
         return (
           <div
             key={_id}
-            className="m-4 p-4  rounded-lg bg-base-300 flex w-1/2 mx-auto"
+            className="m-4 p-4  rounded-lg bg-base-300 flex w-1/2 mx-auto justify-between"
           >
             <div>
-              {photoUrl && (
-                <img
-                  className="w-20 h-20 rounded-b-full "
-                  alt="photo"
-                  src={photoUrl}
-                />
-              )}
+              <div>
+                {photoUrl && (
+                  <img
+                    className="w-20 h-20 rounded-b-full "
+                    alt="photo"
+                    src={photoUrl}
+                  />
+                )}
+              </div>
+              <div className="text-left mx-4">
+                <h2 className="font-bold text-xl">{firstName}</h2>
+                {age && gender && <p>{age + "," + gender}</p>}
+                <p>{about}</p>
+              </div>
             </div>
-            <div className="text-left mx-4">
-              <h2 className="font-bold text-xl">{firstName}</h2>
-              {age && gender && <p>{age + "," + gender}</p>}
-              <p>{about}</p>
+            <div>
+              <Link to={"/chat/" + _id}>
+                <button className="btn btn-primary">Chat</button>
+              </Link>
             </div>
           </div>
         );
