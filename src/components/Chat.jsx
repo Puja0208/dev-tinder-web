@@ -21,8 +21,8 @@ const Chat = () => {
     console.log(chat.data.messages);
     const chatMessages = chat?.data.messages.map((msg) => {
       return {
-        firstName: msg?.senderId.firstName,
-        lastName: msg.senderId.lastName,
+        firstName: msg?.senderId?.firstName,
+        lastName: msg.senderId?.lastName,
         text: msg.text,
       };
     });
