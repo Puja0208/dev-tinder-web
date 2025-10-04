@@ -5,9 +5,18 @@ import Cookies from "js-cookie";
 const token = Cookies.get("token");
 
 export const createSocketConnection = () => {
-  return io(BASE_URL, {
-    auth: {
-      token: token,
-    },
-  });
+  if (location.hostname === "localhost") {
+    return io(BASE_URL, {
+      auth: {
+        token: token,
+      },
+    });
+  } else {
+    io("/", {
+      auth: {
+        token: token,
+      },
+      path: "/api/socket.io",
+    });
+  }
 };
